@@ -1,0 +1,13 @@
+{
+  "model_name": "AI-PAVE YOLOv8 Pothole Detector",
+  "model_version": "v8n-rdd2022-gpu-trained",
+  "task": "detect",
+  "training_timestamp": "2026-10-04T22:31:00",
+  "device_used": "NVIDIA T4 GPU",
+  "class_names": {
+    "0": "pothole"
+  },
+  "dataset": "RDD2022 Pothole Benchmark",
+  "checkpoint_path": "artifacts/models/pothole_detector_yolo.pt",
+  "status": "TRAINED_ACTIVE"
+}

@@ -1,0 +1,72 @@
+# AI-PAVE Severity Rules Configuration
+# Transparent, measurable rules for engineering-oriented road inspection.
+# Note: These categories represent engineering evaluation heuristics based on geometric
+# and relative-depth indicators. They do not substitute for in-person qualified structural road inspection.
+
+version: "1.0.0"
+description: "Thresholds for classifying pothole severity based on measurable parameters."
+
+# Weights applied to normalized indicators when calculating composite risk score [0 - 100]
+scoring_weights:
+  area_weight: 0.35
+  depth_weight: 0.35
+  aspect_ratio_weight: 0.10
+  location_weight: 0.10
+  confidence_weight: 0.10
+
+# Thresholds for severity levels
+# Area is in percentage of road/visible field (or square meters if calibrated)
+# Relative depth is estimated relative depression index [0.0 - 1.0] where 1.0 is maximum local contrast depression
+levels:
+  critical:
+    min_composite_score: 75.0
+    criteria_or:
+      - area_road_ratio_pct: 3.5          # Pothole covers > 3.5% of visible road frame
+      - relative_depth_index: 0.70         # Deep depression relative to road plane
+      - physical_depth_cm: 7.5            # If calibrated, physical depth > 7.5 cm
+      - physical_area_m2: 0.25            # If calibrated, surface area > 0.25 m^2
+    risk_level: "CRITICAL"
+    urgency: "Immediate (Within 24-48 hours)"
+    color: "#d32f2f"
+    description: "Severe pavement disruption likely to cause immediate vehicular damage, tire blowout, or safety hazard."
+
+  high:
+    min_composite_score: 50.0
+    criteria_or:
+      - area_road_ratio_pct: 1.8
+      - relative_depth_index: 0.50
+      - physical_depth_cm: 4.5
+      - physical_area_m2: 0.10
+    risk_level: "HIGH"
+    urgency: "High Priority (Within 3-7 days)"
+    color: "#ed6c02"
+    description: "Significant pavement loss causing driver discomfort and potential wheel rim/alignment damage."
+
+  medium:
+    min_composite_score: 25.0
+    criteria_or:
+      - area_road_ratio_pct: 0.8
+      - relative_depth_index: 0.30
+      - physical_depth_cm: 2.5
+      - physical_area_m2: 0.04
+    risk_level: "MEDIUM"
+    urgency: "Scheduled Maintenance (Within 2-4 weeks)"
+    color: "#0288d1"
+    description: "Moderate surface wear developing into localized pothole; progressive deterioration if unaddressed."
+
+  low:
+    min_composite_score: 0.0
+    criteria_or:
+      - area_road_ratio_pct: 0.0
+      - relative_depth_index: 0.0
+    risk_level: "LOW"
+    urgency: "Routine Monitoring"
+    color: "#2e7d32"
+    description: "Minor shallow depression or early raveling; stable in current traffic conditions."
+
+# Visual factors heuristics
+contributing_factor_thresholds:
+  water_accumulation_brightness_drop: 0.25 # Significant dark specular patch inside depression
+  surface_cracking_edge_density: 0.15     # High Canny edge density in surrounding perimeter
+  edge_deterioration_irregularity: 0.65   # Low circularity / high perimeter-to-area ratio
+  patch_failure_variance: 0.30            # High local texture variation indicating aged asphalt patch

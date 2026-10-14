@@ -1,0 +1,54 @@
+{
+  "task": "detect",
+  "model": {
+    "type": "yolov8n.pt",
+    "pretrained": true,
+    "num_classes": 1,
+    "names": [
+      "pothole"
+    ]
+  },
+  "dataset": {
+    "path": "../datasets",
+    "train": "train/images",
+    "val": "val/images",
+    "test": "test/images",
+    "names": {
+      "0": "pothole"
+    }
+  },
+  "training": {
+    "epochs": 3,
+    "batch_size": 4,
+    "imgsz": 640,
+    "learning_rate": 0.001,
+    "optimizer": "AdamW",
+    "workers": 2,
+    "device": "auto",
+    "patience": 10,
+    "save_period": 1,
+    "seed": 42,
+    "deterministic": true
+  },
+  "augmentation": {
+    "hsv_h": 0.015,
+    "hsv_s": 0.7,
+    "hsv_v": 0.4,
+    "degrees": 0.0,
+    "translate": 0.1,
+    "scale": 0.2,
+    "shear": 0.0,
+    "perspective": 0.0005,
+    "flipud": 0.0,
+    "fliplr": 0.5,
+    "mosaic": 0.5
+  },
+  "inference": {
+    "conf_threshold": 0.25,
+    "iou_threshold": 0.45
+  },
+  "artifacts": {
+    "output_dir": "../artifacts/models",
+    "eval_dir": "../artifacts/evaluation"
+  }
+}

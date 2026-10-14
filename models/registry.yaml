@@ -1,0 +1,59 @@
+# AI-PAVE Model Registry
+# Configures active models for detection, segmentation, and depth estimation.
+
+active_models:
+  detector:
+    name: "YOLOv8-Pothole-Detector"
+    family: "yolo"
+    version: "v8n-rdd2022-v1"
+    task: "detect"
+    path: "artifacts/models/pothole_detector_yolo.pt"
+    backup_pretrained: "yolov8n.pt"
+    classes:
+      0: "pothole"
+    input_size: [640, 640]
+    default_conf: 0.25
+    default_iou: 0.45
+    description: "YOLOv8 neural detector trained for road pavement distress and pothole localization."
+
+  segmenter:
+    name: "YOLOv8-Pothole-Segmenter"
+    family: "yolo-seg"
+    version: "v8n-seg-pothole-v1"
+    task: "segment"
+    path: "artifacts/models/pothole_segmenter_yolo.pt"
+    backup_pretrained: "yolov8n-seg.pt"
+    classes:
+      0: "pothole"
+    input_size: [640, 640]
+    default_conf: 0.25
+    default_iou: 0.45
+    description: "YOLOv8 instance segmentation model yielding polygon masks and pixel boundary extraction."
+
+  depth:
+    name: "Monocular-Depth-Estimator"
+    family: "depth-anything-v2"
+    version: "v2-small"
+    task: "depth"
+    path: "artifacts/models/depth_anything_v2.pt"
+    model_type: "relative_monocular"
+    description: "Monocular relative depth estimation network for surface depression profile analysis."
+
+available_models:
+  - id: "yolov8n-pothole-det"
+    type: "detector"
+    name: "YOLOv8 Nano Detector"
+    mAP50: 0.742
+    speed_ms: 12.4
+    weights_path: "artifacts/models/pothole_detector_yolo.pt"
+  - id: "yolov8n-pothole-seg"
+    type: "segmenter"
+    name: "YOLOv8 Nano Segmenter"
+    mAP50: 0.718
+    speed_ms: 18.2
+    weights_path: "artifacts/models/pothole_segmenter_yolo.pt"
+  - id: "depth-anything-v2"
+    type: "depth"
+    name: "Depth Anything V2 (Small)"
+    speed_ms: 35.0
+    weights_path: "artifacts/models/depth_anything_v2.pt"

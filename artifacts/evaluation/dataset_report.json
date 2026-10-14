@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "dataset_root": "C:\\Users\\yuvar\\OneDrive\\Desktop\\AI-PAVE\\datasets",
+  "summary": {
+    "total_images": 14,
+    "total_labels": 14,
+    "corrupt_images": 0,
+    "missing_labels": 0,
+    "orphaned_labels": 2,
+    "invalid_boxes": 0,
+    "empty_annotation_files": 0,
+    "duplicate_images": 0
+  },
+  "splits": {
+    "train": {
+      "image_count": 8,
+      "label_count": 8,
+      "pothole_instances": 9,
+      "corrupt_images": [],
+      "missing_labels": [],
+      "invalid_labels": []
+    },
+    "val": {
+      "image_count": 3,
+      "label_count": 3,
+      "pothole_instances": 3,
+      "corrupt_images": [],
+      "missing_labels": [],
+      "invalid_labels": []
+    },
+    "test": {
+      "image_count": 3,
+      "label_count": 3,
+      "pothole_instances": 6,
+      "corrupt_images": [],
+      "missing_labels": [],
+      "invalid_labels": []
+    }
+  },
+  "class_distribution": {
+    "class_0": 18
+  },
+  "resolution_distribution": {
+    "640x480": 14
+  },
+  "box_size_distribution": {
+    "small (< 0.05)": 0,
+    "medium (0.05 - 0.20)": 0,
+    "large (> 0.20)": 0
+  },
+  "errors": [
+    "Orphaned label without image: external_test/road_sample_external_test_001.txt",
+    "Orphaned label without image: external_test/road_sample_external_test_002.txt"
+  ]
+}
